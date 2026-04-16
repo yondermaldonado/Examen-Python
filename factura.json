@@ -1,0 +1,72 @@
+[
+    {
+        "fecha": "2026-04-16",
+        "cliente": "1",
+        "codigoMesa": "1",
+        "productos": [
+            {
+                "codigo": "1",
+                "cantidad": "4"
+            }
+        ]
+    },
+    {
+        "fecha": "2026-04-16",
+        "cliente": "1",
+        "codigoMesa": "1",
+        "productos": [
+            {
+                "codigo": "1",
+                "cantidad": "5"
+            }
+        ]
+    },
+    {
+        "fecha": "2026-04-16",
+        "cliente": "1",
+        "codigoMesa": "1",
+        "productos": [
+            {
+                "codigo": "3",
+                "cantidad": "4"
+            }
+        ]
+    },
+    {
+        "fecha": "2026-04-16",
+        "cliente": "1",
+        "codigoMesa": "1",
+        "productos": [
+            {
+                "codigo": "2",
+                "cantidad": "5"
+            },
+            {
+                "codigo": "3",
+                "cantidad": "6"
+            }
+        ]
+    },
+    {
+        "fecha": "2026-04-16",
+        "cliente": "1",
+        "codigoMesa": "1",
+        "productos": [
+            {
+                "codigo": "23",
+                "cantidad": "4"
+            }
+        ]
+    },
+    {
+        "fecha": "2026-04-16",
+        "cliente": "1",
+        "codigoMesa": "1",
+        "productos": [
+            {
+                "codigo": "23",
+                "cantidad": "80"
+            }
+        ]
+    }
+]

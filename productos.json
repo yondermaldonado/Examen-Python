@@ -1,0 +1,32 @@
+[
+    {
+        "codigo": "1",
+        "nombre": "a",
+        "precio": "1",
+        "iva": "1"
+    },
+    {
+        "codigo": "2",
+        "nombre": "a",
+        "precio": "2",
+        "iva": "2"
+    },
+    {
+        "codigo": "3",
+        "nombre": "a",
+        "precio": "3",
+        "iva": "3"
+    },
+    {
+        "codigo": "23",
+        "nombre": "asd",
+        "precio": "54",
+        "iva": "5"
+    },
+    {
+        "codigo": "23",
+        "nombre": "asd",
+        "precio": "34",
+        "iva": "3"
+    }
+]
