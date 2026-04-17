@@ -1,7 +1,7 @@
 import json
 import csv
 import datetime
-ac = "mas_vendido.json"
+ac = "Examen-Python/mas_vendido.json"
 def menuPrincipal():
     print("---------------------------------------")
     print("SISTEMA DE FACRURACION RESTAURANTE ACME")
@@ -59,7 +59,7 @@ def registrarProductos(listaProductos):
         "iva":input("digite iva: ")
     }
     listaProductos.append(diccionarioProductos)
-    guardarArchivo("productos.json",listaProductos)
+    guardarArchivo("Examen-Python/productos.json",listaProductos)
     return listaProductos
     
 def registrarMesas(listaMesas):
@@ -69,11 +69,11 @@ def registrarMesas(listaMesas):
         "puestos":input("digite puestos: "),
     }
     listaMesas.append(diccionarioMesas)
-    guardarArchivo("mesas.json",listaMesas)
+    guardarArchivo("Examen-Python/mesas.json",listaMesas)
     return listaMesas
 
 def generarReporteCSV(facturasFiltradas, listaProductos):
-    nombre_archivo = "reporte_ventas.csv"
+    nombre_archivo = "Examen-Python/reporte_ventas.csv"
     encabezados = ["Mesa", "Producto", "Cantidad", "Subtotal", "IVA", "Total"]
     
     with open(nombre_archivo, "w", newline="", encoding="utf-8") as file:
@@ -132,8 +132,8 @@ def rankingProductosMenosVendidos(listaFacturas, listaProductos):
             break
     print("-------------------------------------------------------")
 def productos_mas_vendidos(fecha_inicio, fecha_fin):
-    listafacturas = leerArchivo("factura.json")
-    listaProductos = leerArchivo("productos.json")
+    listafacturas = leerArchivo("Examen-Python/factura.json")
+    listaProductos = leerArchivo("Examen-Python/productos.json")
     conteo_mas_vendido = []
     facturas_seleccionadas = []
         
