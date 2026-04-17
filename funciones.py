@@ -97,7 +97,7 @@ def generarReporteCSV(facturasFiltradas, listaProductos):
                         writer.writerow([mesa, p["nombre"], cant, subtotal, iva_valor, total])
     
     print("---------------------------------------")
-    print(f"¡Listo! Archivo '{nombre_archivo}' creado.")
+    print("archivo creado.")
     print("---------------------------------------")
 
 def rankingProductosMenosVendidos(listaFacturas, listaProductos):
@@ -136,6 +136,7 @@ def productos_mas_vendidos(fecha_inicio, fecha_fin):
     listaProductos = leerArchivo("productos.json")
     conteo_mas_vendido = []
 
+    # 1. Tu bloque original: Crear diccionarios auxiliares
     for p in listaProductos:
         deccionario_auxiliar = {
             "codigo": str(p["codigo"]),
@@ -144,29 +145,33 @@ def productos_mas_vendidos(fecha_inicio, fecha_fin):
         }
         conteo_mas_vendido.append(deccionario_auxiliar)
 
-        for factura in listafacturas:
- 
-            if fecha_inicio <= factura["fecha"] <= fecha_fin:
-                for item in factura["productos"]:
-                    codigo_vendido = str(item["codigo"])
-                    cantidad_vendida = int(item["cantidad"])
+    # 2. Tu bloque original: Recorrer facturas e items
+    for factura in listafacturas:
+        # AGREGAMOS TU FILTRO DE FECHA AQUÍ:
+        if fecha_inicio <= factura["fecha"] <= fecha_fin:
+            for item in factura["productos"]:
+                codigo_vendido = str(item["codigo"])
+                cantidad_vendida = int(item["cantidad"])
 
-                    for producto_conteo in conteo_mas_vendido:
-                        if producto_conteo["codigo"] == codigo_vendido:
-                            producto_conteo["vendidos"] = producto_conteo["vendidos"] + cantidad_vendida
-                            break
-            else:
-                print("no hay facturas de esas fechas")
-                return
+                for producto_conteo in conteo_mas_vendido:
+                    if producto_conteo["codigo"] == codigo_vendido:
+                        producto_conteo["vendidos"] = producto_conteo["vendidos"] + cantidad_vendida
+                        break
 
-        lista_con_orden = sorted(conteo_mas_vendido, key=lambda x: x["vendidos"])
-        print("---------------Producto mas vendidos--------------")
-        if len(lista_con_orden) > 0:
-            a = lista_con_orden[-1]
-            print(a)
-            a["fecha"] = datetime.datetime.now().strftime("%Y-%m-%d")
-            global ac
-            guardarArchivo(ac, a)
+    # 3. Tu bloque original: Ordenar y mostrar
+    def regla_orden(x): return x["vendidos"] # Alternativa a lambda
+    lista_con_orden = sorted(conteo_mas_vendido, key=regla_orden)
+    
+    print("---------------Producto mas vendidos--------------")
+    if len(lista_con_orden) > 0:
+        a = lista_con_orden[-1]
+        print(a)
+        
+        # 4. Tu bloque original: Guardar reporte
+        import datetime
+        a["fecha"] = datetime.datetime.now().strftime("%Y-%m-%d")
+        global ac
+        guardarArchivo(ac, a)
     else:
         print("ERROR")
         return
