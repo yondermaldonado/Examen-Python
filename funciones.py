@@ -102,7 +102,7 @@ def generarReporteCSV(facturasFiltradas, listaProductos):
 
 def rankingProductosMenosVendidos(listaFacturas, listaProductos):
     conteo_ranking = []
-
+    
     for p in listaProductos:
         diccionario_auxiliar = {
             "codigo": str(p["codigo"]),
@@ -122,10 +122,10 @@ def rankingProductosMenosVendidos(listaFacturas, listaProductos):
 
     lista_ordenada = sorted(conteo_ranking, key=lambda x: x["vendidos"])
 
-    print("\n---------- RANKING: 5 PRODUCTOS MENOS VENDIDOS ----------")
+    print("\n----------5 PRODUCTOS MENOS VENDIDOS ----------")
     contador = 1
     for p in lista_ordenada:
-        print(f"{contador}. Código Producto: {p['codigo']} | Unidades Vendidas: {p['vendidos']}")
+        print(f"{contador}. Código Producto: {p['codigo']}, unidades Vendidas: {p['vendidos']}")
         
         contador = contador + 1
         if contador > 5:
@@ -135,46 +135,41 @@ def productos_mas_vendidos(fecha_inicio, fecha_fin):
     listafacturas = leerArchivo("factura.json")
     listaProductos = leerArchivo("productos.json")
     conteo_mas_vendido = []
-
-    # 1. Tu bloque original: Crear diccionarios auxiliares
-    for p in listaProductos:
-        deccionario_auxiliar = {
-            "codigo": str(p["codigo"]),
-            "nombre": str(p["nombre"]),
-            "vendidos": 0
-        }
-        conteo_mas_vendido.append(deccionario_auxiliar)
-
-    # 2. Tu bloque original: Recorrer facturas e items
-    for factura in listafacturas:
-        # AGREGAMOS TU FILTRO DE FECHA AQUÍ:
-        if fecha_inicio <= factura["fecha"] <= fecha_fin:
-            for item in factura["productos"]:
-                codigo_vendido = str(item["codigo"])
-                cantidad_vendida = int(item["cantidad"])
-
-                for producto_conteo in conteo_mas_vendido:
-                    if producto_conteo["codigo"] == codigo_vendido:
-                        producto_conteo["vendidos"] = producto_conteo["vendidos"] + cantidad_vendida
-                        break
-
-    # 3. Tu bloque original: Ordenar y mostrar
-    def regla_orden(x): return x["vendidos"] # Alternativa a lambda
-    lista_con_orden = sorted(conteo_mas_vendido, key=regla_orden)
-    
-    print("---------------Producto mas vendidos--------------")
-    if len(lista_con_orden) > 0:
-        a = lista_con_orden[-1]
-        print(a)
+    facturas_seleccionadas = []
         
-        # 4. Tu bloque original: Guardar reporte
-        import datetime
-        a["fecha"] = datetime.datetime.now().strftime("%Y-%m-%d")
-        global ac
-        guardarArchivo(ac, a)
+    for factura in listafacturas:
+            if fecha_inicio <= factura["fecha"] <= fecha_fin:
+                facturas_seleccionadas.append(factura)
+        
+    if len(facturas_seleccionadas) == 0:
+            print("No se encontraron facturas en ese rango de fechas.")
     else:
-        print("ERROR")
-        return
+        for p in listaProductos:
+            deccionario_auxiliar = {
+                "codigo": str(p["codigo"]),
+                "nombre": str(p["nombre"]),
+                "vendidos": 0
+            }
+            conteo_mas_vendido.append(deccionario_auxiliar)
+        for factura in facturas_seleccionadas:
+                for item in factura["productos"]:
+                    codigo_vendido = str(item["codigo"])
+                    cantidad_vendida = int(item["cantidad"])
+                    for producto_conteo in conteo_mas_vendido:
+                        if producto_conteo["codigo"] == codigo_vendido:
+                            producto_conteo["vendidos"] = producto_conteo["vendidos"] + cantidad_vendida
+                        
+        lista_con_orden = sorted(conteo_mas_vendido, key=lambda x : x ["vendidos"], reverse=True)
+        print("---------------Producto mas vendidos--------------")
+        if len(lista_con_orden) > 0:
+            a = lista_con_orden[0]
+            print(a)
+            a["fecha"] = datetime.datetime.now().strftime("%Y-%m-%d")
+            global ac
+            guardarArchivo(ac, a)
+        else:
+            print("ERROR")
+            return
     #contador = 4
     #for p in lista_con_orden:
     #    print(f"{contador}. Codigo: {p['codigo']}, nombre: {p['nombre']}, vendido {p['vendidos']}")

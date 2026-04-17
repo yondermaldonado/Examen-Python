@@ -28,5 +28,11 @@
         "nombre": "asd",
         "precio": "34",
         "iva": "3"
+    },
+    {
+        "codigo": "49",
+        "nombre": "ASD",
+        "precio": "3",
+        "iva": "4"
     }
 ]

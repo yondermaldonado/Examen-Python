@@ -68,5 +68,16 @@
                 "cantidad": "80"
             }
         ]
+    },
+    {
+        "fecha": "2026-04-17",
+        "cliente": "1",
+        "codigoMesa": "1",
+        "productos": [
+            {
+                "codigo": "1",
+                "cantidad": "100"
+            }
+        ]
     }
 ]
