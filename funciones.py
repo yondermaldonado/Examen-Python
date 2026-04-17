@@ -131,32 +131,45 @@ def rankingProductosMenosVendidos(listaFacturas, listaProductos):
         if contador > 5:
             break
     print("-------------------------------------------------------")
-def productos_mas_vendidos(listafacturas, listaProductos):
+def productos_mas_vendidos(fecha_inicio, fecha_fin):
+    listafacturas = leerArchivo("factura.json")
+    listaProductos = leerArchivo("productos.json")
     conteo_mas_vendido = []
 
     for p in listaProductos:
         deccionario_auxiliar = {
-            "codigo": str(p["codigo"]),"nombre": str(p["nombre"]),
+            "codigo": str(p["codigo"]),
+            "nombre": str(p["nombre"]),
             "vendidos": 0
         }
         conteo_mas_vendido.append(deccionario_auxiliar)
-    for factura in listafacturas:
-        for item in factura["productos"]:
-            codigo_vendido = str(item["codigo"])
-            cantidad_vendida = int(item["cantidad"])
 
-            for producto_conteo in conteo_mas_vendido:
-                if producto_conteo["codigo"] == codigo_vendido:
-                    producto_conteo["vendidos"] = producto_conteo["vendidos"]+cantidad_vendida
-                    break
-    lista_con_orden = sorted(conteo_mas_vendido,  key= lambda  x: x["vendidos"])
-    print("---------------Producto mas vendidos--------------")
-    print(lista_con_orden[-1])
-    a = lista_con_orden[-1]
-    a["fecha"]= datetime.datetime.now().strftime("%Y-%m-%d")
-    global ac
-    guardarArchivo(ac,a)
-    return
+        for factura in listafacturas:
+ 
+            if fecha_inicio <= factura["fecha"] <= fecha_fin:
+                for item in factura["productos"]:
+                    codigo_vendido = str(item["codigo"])
+                    cantidad_vendida = int(item["cantidad"])
+
+                    for producto_conteo in conteo_mas_vendido:
+                        if producto_conteo["codigo"] == codigo_vendido:
+                            producto_conteo["vendidos"] = producto_conteo["vendidos"] + cantidad_vendida
+                            break
+            else:
+                print("no hay facturas de esas fechas")
+                return
+
+        lista_con_orden = sorted(conteo_mas_vendido, key=lambda x: x["vendidos"])
+        print("---------------Producto mas vendidos--------------")
+        if len(lista_con_orden) > 0:
+            a = lista_con_orden[-1]
+            print(a)
+            a["fecha"] = datetime.datetime.now().strftime("%Y-%m-%d")
+            global ac
+            guardarArchivo(ac, a)
+    else:
+        print("ERROR")
+        return
     #contador = 4
     #for p in lista_con_orden:
     #    print(f"{contador}. Codigo: {p['codigo']}, nombre: {p['nombre']}, vendido {p['vendidos']}")

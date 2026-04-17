@@ -128,20 +128,8 @@ while True:
     elif opcionPrincipal == "7":
         fecha_inicio = input("Digite fecha de inicio (AAAA-MM-DD): ")
         fecha_fin = input("Digite fecha de fin (AAAA-MM-DD): ")
-        todas_las_facturas = funciones.leerArchivo("factura.json")
-        facturas_seleccionadas = []
-        
-        for factura in todas_las_facturas:
-            if fecha_inicio <= factura["fecha"] <= fecha_fin:
-                facturas_seleccionadas.append(factura)
-        
-        if len(facturas_seleccionadas) == 0:
-            print("No se encontraron facturas en ese rango de fechas.")
-        else:
-            if len(todas_las_facturas) == 0:
-                print("No hay facturas")
-            else:
-                funciones.productos_mas_vendidos(todas_las_facturas, listaProductos)
+    
+        funciones.productos_mas_vendidos(fecha_inicio, fecha_fin)
     elif opcionPrincipal == "8":
         print("Saliendo del sistema...")
         break
